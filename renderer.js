@@ -7,8 +7,12 @@ const list = document.getElementById('todo-list');
 window.addEventListener('DOMContentLoaded', () => {
     const savedData = JSON.parse(localStorage.getItem('Todos')) || [];
     savedData.forEach(item => {
-        createTodoElement(item.text, item.time);
+        createTodoElement(item.text, item.time, item.notifid);
     });
+
+    if(Notification.permission !== 'granted'){
+        Notification.requestPermission();
+    }
 });
 
 // 現在の状態を保存する
@@ -16,18 +20,19 @@ function saveTodos() {
     const todos = [];
     document.querySelectorAll('#todo-list li').forEach(li => {
         const text = li.querySelector('.todo-text').textContent;
-        const time = li.querySelector('.todo-time-display').textContent;
-        todos.push({text: text, time: time});
+        const time = li.querySelector('.todo-time-display').textContent.replace(' ', 'T');
+        const notifid = li.getAttribute('data-notified') === true;
+        todos.push({text, time, notifid});
     });
 
     localStorage.setItem('Todos', JSON.stringify(todos));
-    console.log()
 }
 
 // TODOを追加する
-function createTodoElement(text, time) {
+function createTodoElement(text, time, notifid = false) {
     // リスト項目を作る
     const li = document.createElement('li');
+    li.setAttribute('data-notified', notifid);
 
     // テキスト部分
     const textSpan = document.createElement('span');
@@ -65,9 +70,36 @@ button.addEventListener('click', () => {
     const time = timeInput.value;
     
     if(text.trim() !== ""){
-        createTodoElement(text, time);
+        createTodoElement(text, time, false);
         saveTodos();
         input.value = "";
         timeInput.value = "";
     }
 });
+
+setInterval(() => {
+    const now = new Date();
+    // 1分未満の誤差は許容
+    const currentTime = now.getFullYear() + "-" +
+        ("0" + (now.getMonth() + 1)).slice(-2) + "-" +
+        ("0" + now.getDate()).slice(-2) + "T" +
+        ("0" + now.getHours()).slice(-2) + ":" +
+        ("0" + now.getMinutes()).slice(-2);
+
+        document.querySelectorAll('#todo-list li').forEach(li => {
+            const timeDisplay = li.querySelector('.todo-time-display').textContent.replace(' ', 'T');
+            const isNotified = li.getAttribute('data-notified') === 'true';
+
+            if(timeDisplay && timeDisplay <= currentTime && !isNotified){
+                const taskName = li.querySelector('.todo-text').textContent;
+
+                new Notification("TODOの時間です!", {
+                    body: taskName,
+                    // icon: "path/to/icon.png"
+                });
+
+                li.setAttribute('data-notified', 'true');
+                saveTodos();
+            }
+        });
+}, 10000);
