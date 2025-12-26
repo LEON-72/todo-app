@@ -1,8 +1,8 @@
 {
-  "name": "my-todo-app",
+  "name": "simple-todo-app",
   "version": "1.0.0",
-  "description": "My Simple TODO App",
-  "author": "Your Name",
+  "description": "Simple Todo App",
+  "author": "Reon Hiribe",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
