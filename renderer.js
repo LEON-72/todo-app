@@ -35,7 +35,7 @@ function createTodoElement(text) {
     // 削除ボタンを作る
     const deleteButton = document.createElement('button');
     deleteButton.textContent = '削除';
-    deleteButton.style.marginLeft = '10px';
+    deleteButton.classList.add('delete-button');
 
     // 削除ボタンが押されたとき
     deleteButton.addEventListener('click', () => {

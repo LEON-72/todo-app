@@ -5,13 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <title>TODOアプリ</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>TODO</h1>
-    <input type="text" id="todo-input" placeholder="タスクを入力">
-    <button id="add-button">追加</button>
-    <ul id="todo-list"></ul>
-
+    <div class="container">
+        <h1>My Tasks</h1>
+        
+        <div class="input-group">
+            <input type="text" id="todo-input" placeholder="タスクを入力">
+            <button id="add-button">追加</button>
+        </div>
+        
+            <ul id="todo-list"></ul>
+    </div>
+        
     <script src="renderer.js"></script>
 </body>
 </html>
