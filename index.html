@@ -1,25 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <title>TODOアプリ</title>
+    <title>ToDo List</title>
+    <link rel="stylesheet" href="node_modules/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="node_modules/flatpickr/dist/themes/dark.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>My Tasks</h1>
-        
-        <div class="input-group">
-            <input type="text" id="todo-input" placeholder="タスクを入力">
-            <input type="datetime-local" id="todo-time">
-            <button id="add-button">追加</button>
-        </div>
-        
+    <div class="app-container">
+        <header>
+            <h1>My Tasks</h1>
+        </header>
+
+        <main id="list-scroll-area">
             <ul id="todo-list"></ul>
+        </main>
+
+        <footer class="input-bar">
+            <div class="input-wrapper">
+                <span class="plus-icon">＋</span>
+                <input type="text" id="todo-input" placeholder="タスクの追加">
+                <input type="datetime-local" id="todo-time">
+                <button id="add-button">追加</button>
+            </div>
+        </footer>
     </div>
-        
     <script src="renderer.js"></script>
 </body>
 </html>
