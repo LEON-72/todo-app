@@ -1,0 +1,27 @@
+{
+  "name": "simple-todo-app",
+  "version": "1.0.0",
+  "description": "Simple Todo App",
+  "author": "Reon Hiribe",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win"
+  },
+  "build": {
+    "appId": "com.example.mytodo",
+    "win": {
+      "target": "nsis"
+    },
+    "directories": {
+      "output": "dist"
+    }
+  },
+  "devDependencies": {
+    "electron": "^39.2.7",
+    "electron-builder": "^26.0.12"
+  },
+  "dependencies": {
+    "flatpickr": "^4.6.13"
+  }
+}
