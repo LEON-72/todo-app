@@ -23,6 +23,7 @@ h1 {
 
 .input-group {
     display: flex;
+    flex-direction: column;
     gap: 10px;
     margin-bottom: 20px;
 }
@@ -64,6 +65,25 @@ input[type="text"]:focus {
 
 #todo-list li:last-child {
     border-bottom: none;
+}
+
+#todo-time {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: inherit;
+}
+
+.todo-text {
+    flex: 2;
+    font-weight: bold;
+}
+
+.todo-time-display {
+    flex: 1;
+    font-size: 0.85em;
+    color: #666;
+    margin: 0 10px;
 }
 
 .delete-button {

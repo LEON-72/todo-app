@@ -1,21 +1,23 @@
 const input = document.getElementById('todo-input');
+const timeInput = document.getElementById('todo-time');
 const button = document.getElementById('add-button');
 const list = document.getElementById('todo-list');
 
 // 起動時に保存されたデータを読み込む
 window.addEventListener('DOMContentLoaded', () => {
     const savedData = JSON.parse(localStorage.getItem('Todos')) || [];
-    savedData.forEach(todoText => {
-        createTodoElement(todoText)
+    savedData.forEach(item => {
+        createTodoElement(item.text, item.time);
     });
 });
 
 // 現在の状態を保存する
 function saveTodos() {
     const todos = [];
-
-    document.querySelectorAll('#todo-list li span').forEach(span => {
-        todos.push(span.textContent);
+    document.querySelectorAll('#todo-list li').forEach(li => {
+        const text = li.querySelector('.todo-text').textContent;
+        const time = li.querySelector('.todo-time-display').textContent;
+        todos.push({text: text, time: time});
     });
 
     localStorage.setItem('Todos', JSON.stringify(todos));
@@ -23,16 +25,21 @@ function saveTodos() {
 }
 
 // TODOを追加する
-function createTodoElement(text) {
-    // リスト項目(li)を作る
+function createTodoElement(text, time) {
+    // リスト項目を作る
     const li = document.createElement('li');
 
-    // テキスト用のスパンを作る(文字とボタンを分けるため)
-    const span = document.createElement('span');
-    span.textContent = text;
-    li.appendChild(span);
+    // テキスト部分
+    const textSpan = document.createElement('span');
+    textSpan.textContent = text;
+    textSpan.classList.add('todo-text');
 
-    // 削除ボタンを作る
+    // 時間表示
+    const timeSpan = document.createElement('span');
+    timeSpan.textContent = time ? time.replace('T', ' ') : '';
+    timeSpan.classList.add('todo-time-display');
+
+    // 削除ボタン
     const deleteButton = document.createElement('button');
     deleteButton.textContent = '削除';
     deleteButton.classList.add('delete-button');
@@ -43,6 +50,8 @@ function createTodoElement(text) {
         saveTodos();
     });
 
+    li.appendChild(textSpan);
+    li.appendChild(timeSpan);
     li.appendChild(deleteButton);
     list.appendChild(li);
 
@@ -50,12 +59,15 @@ function createTodoElement(text) {
     console.log("リストに追加完了！");
 }
 
-// 追加ボタンのイベント
+// 追加ボタン
 button.addEventListener('click', () => {
     const text = input.value;
+    const time = timeInput.value;
+    
     if(text.trim() !== ""){
-        createTodoElement(text);
+        createTodoElement(text, time);
         saveTodos();
         input.value = "";
+        timeInput.value = "";
     }
 });
