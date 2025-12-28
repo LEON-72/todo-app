@@ -11,7 +11,7 @@
 
 ## インストール方法
 1. [Releases](https://github.com/LEON-72/todo-app/releases) ページにアクセスします。
-2. 最新バージョンの `my-todo-app-Setup-1.0.0.exe` をダウンロードします。
+2. 最新バージョンの `my-todo-app-Setup-1.1.0.exe` をダウンロードします。
 3. ダウンロードしたファイルを実行してインストールしてください。
 
 ## 使用技術
